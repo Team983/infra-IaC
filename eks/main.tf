@@ -38,7 +38,7 @@ module "eks" {
   control_plane_subnet_ids = local.public_subnets
 
   eks_managed_node_group_defaults = {
-    instance_types = ["t3.large"]
+    instance_types = ["t3.small"]
 
     tags = {
       Cluster     = "synnote-production"
@@ -50,7 +50,7 @@ module "eks" {
   eks_managed_node_groups = {
     worker = {
       desired_size = 2
-      max_size     = 10
+      max_size     = 3
       min_size     = 1
     }
   }
