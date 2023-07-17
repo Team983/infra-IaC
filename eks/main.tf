@@ -1,10 +1,3 @@
-locals {
-  name            = "synnote-production"
-  version         = "1.25"
-  public_subnets  = ["subnet-0a096f2af84e8891d", "subnet-02f893dd3c169324b"]
-  private_subnets = ["subnet-0a8f0315e76d9b916", "subnet-0fbd9e405080d7e0d"]
-}
-
 provider "kubernetes" {
   config_path = "~/.kube/config"
 }
@@ -33,7 +26,7 @@ module "eks" {
     }
   }
 
-  vpc_id                   = "vpc-051d993cf4686f030"
+  vpc_id                   = local.vpc_id
   subnet_ids               = local.private_subnets
   control_plane_subnet_ids = local.public_subnets
 
