@@ -30,6 +30,31 @@ resource "aws_subnet" "private" {
   )
 }
 
+// Database Subnet
+resource "aws_subnet" "database" {
+  count = length(var.database_subnets)
+
+  vpc_id            = var.vpc_id
+  cidr_block        = var.database_subnets[count.index].cidr_block
+  availability_zone = var.database_subnets[count.index].availability_zone
+
+  tags = merge(
+  {
+    ManagedBy = "terraform",
+    Name      = "${var.vpc_name}-database-${substr(var.database_subnets[count.index].availability_zone, -1, -2)}"
+  }, var.tags)
+}
+
+resource "aws_db_subnet_group" "database" {
+  subnet_ids  = aws_subnet.database.*.id
+  name        = "${var.vpc_name}-database-subnet-group"
+  description = "${var.vpc_name}-database-subnet-group"
+
+  tags = merge({
+    ManagedBy = "terraform",
+  }, var.tags)
+}
+
 // Nat Gateway
 resource "aws_eip" "public" {
   count = length(var.public_subnets)
@@ -93,6 +118,16 @@ resource "aws_route_table" "private" {
   )
 }
 
+resource "aws_route_table" "database" {
+  vpc_id = var.vpc_id
+
+  tags = merge(
+  {
+    ManagedBy = "terraform",
+    Name      = "${var.vpc_name}-database"
+  }, var.tags)
+}
+
 resource "aws_route_table_association" "public" {
   count = length(var.public_subnets)
 
@@ -105,4 +140,10 @@ resource "aws_route_table_association" "private" {
 
   route_table_id = aws_route_table.private[count.index].id
   subnet_id      = aws_subnet.private[count.index].id
+}
+
+resource "aws_route_table_association" "database" {
+  count          = length(var.database_subnets)
+  route_table_id = aws_route_table.database.id
+  subnet_id      = aws_subnet.database[count.index].id
 }

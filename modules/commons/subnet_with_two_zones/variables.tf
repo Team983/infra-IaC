@@ -24,6 +24,13 @@ variable "private_subnets" {
   }))
 }
 
+variable "database_subnets" {
+  type = list(object({
+    availability_zone = string
+    cidr_block        = string
+  }))
+}
+
 variable "tags" {
   type    = map(string)
   default = {}
