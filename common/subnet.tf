@@ -14,4 +14,9 @@ module "subnet" {
     { cidr_block = "10.128.100.0/24", availability_zone = "ap-northeast-2a" },
     { cidr_block = "10.128.101.0/24", availability_zone = "ap-northeast-2c" }
   ]
+
+  database_subnets = [
+    { cidr_block = "10.128.64.0/24", availability_zone = "ap-northeast-2a" },
+    { cidr_block = "10.128.192.0/24", availability_zone = "ap-northeast-2c" },
+  ]
 }

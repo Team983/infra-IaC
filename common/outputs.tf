@@ -34,6 +34,18 @@ output "private_subnet_cidrs" {
   value = module.subnet.private_subnet_cidr_blocks
 }
 
+output "database_subnet_ids" {
+  value = module.subnet.database_subnet_ids
+}
+
+output "database_subnet_name" {
+  value = module.subnet.database_subnet_name
+}
+
+output "database_subnet_cidrs" {
+  value = module.subnet.database_subnet_cidr_blocks
+}
+
 output "nat_gateway_ids" {
   value = module.subnet.nat_gateway_ids
 }
