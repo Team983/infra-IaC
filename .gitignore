@@ -40,3 +40,4 @@ override.tf.json
 .idea
 
 eks/locals.tf
+rds/locals.tf
