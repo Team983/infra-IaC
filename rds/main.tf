@@ -34,7 +34,23 @@ module "rds" {
     {
       name  = "character_set_server"
       value = "utf8mb4"
-    }
+    },
+    {
+      name = "general_log"
+      value = 1
+    },
+    {
+      name = "log_output"
+      value = "FILE"
+    },
+    {
+      name = "long_query_time"
+      value = 2
+    },
+    {
+      name = "slow_query_log"
+      value = 1
+    },
   ]
 
   tags = merge({
