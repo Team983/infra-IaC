@@ -51,6 +51,10 @@ module "rds" {
       name = "slow_query_log"
       value = 1
     },
+    {
+      name = "time_zone"
+      value = "Asia/Seoul"
+    }
   ]
 
   tags = merge({
