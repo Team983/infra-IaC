@@ -26,6 +26,8 @@ module "rds" {
 
   deletion_protection = true // Database Deletion Protection
 
+  enabled_cloudwatch_logs_exports = ["slowquery"]
+
   parameters = [
     {
       name  = "character_set_client"
