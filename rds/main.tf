@@ -8,6 +8,7 @@ module "rds" {
   family               = var.family               // DB parameter group
   major_engine_version = var.major_engine_version // DB option group
   instance_class       = var.instance_class
+  apply_immediately    = true
 
   allocated_storage     = 10
   max_allocated_storage = 20
@@ -47,7 +48,7 @@ module "rds" {
     },
     {
       name = "long_query_time"
-      value = 2
+      value = 1
     },
     {
       name = "slow_query_log"
