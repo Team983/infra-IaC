@@ -32,6 +32,7 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     instance_types = ["t3.medium"]
+    capacity_type  = "SPOT"
 
     tags = {
       Cluster     = "synnote-production"
@@ -43,7 +44,7 @@ module "eks" {
   eks_managed_node_groups = {
     worker = {
       desired_size = 2
-      max_size     = 3
+      max_size     = 2
       min_size     = 1
     }
   }
